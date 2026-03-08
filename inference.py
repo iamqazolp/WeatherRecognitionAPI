@@ -4,8 +4,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms
+import os
+model_path = "weather_resnet_model.pth"
 
-
+# Verify the model exists
+if not os.path.exists(model_path):
+    raise FileNotFoundError(f"Model file {model_path} not found. Please complete the training first.")
 class_names = ['Cloudy', 'Rain', 'Shine', 'Sunrise']
 
 # We don't need to download the default weights anymore so weights=None
@@ -15,7 +19,7 @@ model.fc = nn.Linear(num_features, len(class_names))
 
 #load the precious trained-on-cpu model
 device=torch.device('cuda:0' if torch.cuda.is_available() else 'cpu') #more pain
-model.load_state_dict(torch.load('weather_cnn_model.pth', map_location=device))
+model.load_state_dict(torch.load(model_path, map_location=device))
 model = model.to(device)
 model.eval()
 
@@ -26,7 +30,6 @@ inference_transform = torchvision.transforms.Compose([
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
 from PIL import Image,ImageShow
-import numpy as np
 def path_to__pil_img(image_path):
     pil_image=Image.open(image_path).convert('RGB')
     return pil_image
