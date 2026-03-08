@@ -37,7 +37,7 @@ Techniques: Applied random resized cropping and horizontal flipping during train
 python data_preprocessing.py
 ```
 ### API Setup
-#### Option 1: Using Docker )
+#### Option 1: Using Docker 
 Make sure Docker is installed and running on your system.
 
 Build the Docker image:
