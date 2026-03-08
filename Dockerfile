@@ -7,10 +7,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-#copy the souce code
+# copy the source code
 COPY . .
 
-# port 800 for fastAPI
+# port 8000 for fastAPI
 EXPOSE 8000
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
