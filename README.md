@@ -29,31 +29,38 @@ Framework: PyTorch, Torchvision
 Techniques: Applied random resized cropping and horizontal flipping during training to mitigate overfitting on a limited dataset.
 
 ## Installation and Setup
-### Data Installation
-The training dataset if taken from: https://www.kaggle.com/datasets/pratik2901/multiclass-weather-dataset
-Download the data and then unzipped to your project folder and then run the script in data_preprocessing.py.
+### 1.Data Acquisition
+#### 1.Download the dataset from [Kaggle](https://www.kaggle.com/datasets/pratik2901/multiclass-weather-dataset)
+#### 2.Unzip the data into the project root directory.
+#### 3.Run the preprocessing script to prepare the directory structure
+```
+python data_preprocessing.py
+```
 ### API Setup
-Option 1: Using Docker (Recommended)
+#### Option 1: Using Docker )
 Make sure Docker is installed and running on your system.
 
 Build the Docker image:
 
-Bash
+```bash
 docker build -t weather-api .
+```
 Run the container:
-
-Bash
+```bash
 docker run -p 8000:8000 weather-api
-Option 2: Local Python Environment
+```
+#### Option 2: Local Python Environment
 Install the required dependencies:
 
-Bash
+```bash
 pip install -r requirements.txt
+```
 Start the API server:
 
-Bash
+```bash
 uvicorn app:app --reload
-Usage
+```
+### Usage
 Once the server is running, the API will be available at http://127.0.0.1:8000.
 
 Interactive UI:
@@ -61,17 +68,19 @@ Navigate to http://127.0.0.1:8000/docs to use the built-in Swagger interface. Yo
 
 Testing via cURL:
 
-Bash
+```bash
 curl -X 'POST' \
   '[http://127.0.0.1:8000/predict](http://127.0.0.1:8000/predict)' \
   -H 'accept: application/json' \
   -H 'Content-Type: multipart/form-data' \
   -F 'file=@path_to_your_test_image.jpg'
+```
 Example Response:
 
-JSON
+```json
 {
   "filename": "test_image.jpg",
   "prediction": "Shine",
   "probability": "98.50"
 }
+```
